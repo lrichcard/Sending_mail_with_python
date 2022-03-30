@@ -1,6 +1,6 @@
 # https://myaccount.google.com/-> to enable less secure app
 #pip install smtplib-> to install smtplib
-
+# python(3) -m smtpd -c DebuggingServer -n localhost:1025
 import smtplib
 
 a  = input(str("type 1 for step 1 and 2 for step 2"))
@@ -26,24 +26,23 @@ if(a=="1"):
     print("Login success")
     server.sendmail(email_sender,email_receiver,message)
     print("Email has benn sent to", email_receiver)
+
+#local server
+# python -m smtpd -c DebuggingServer -n localhost:1025
+
 elif(a=="2"):
-    with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
-        smtp.ehlo()
-        smtp.starttls()
-        smtp.ehlo()
-        email1 = "pipokolo2@gmail.com"
-        password = input(str("please enter the password"))
+    # with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+    with smtplib.SMTP('localhost', 1025) as smtp:
+        subject = "Money subject"
+        body = "This is the body of my message"
 
-        try:
-            smtp.login(email1, password)
-            subject = "Money subject"
-            body = "This is the body of my message"
+        msg = f'Subject: {subject}\n\n{body}'
 
-            msg = f'Subject: {subject}\n\n{body}'
-            smtp.sendmail(email1, 'lrichcard@gmail.com', msg)
-            print("Message sent..")
-        except Exception:
-            print("sorry somethin went wrong")
-else:print("you should have choosed 1 or 2, Bye")
+
+
+
+
+
+
 
 
